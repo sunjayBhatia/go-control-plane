@@ -17,9 +17,9 @@ package conversion_test
 import (
 	"testing"
 
-	"github.com/golang/protobuf/proto"
 	pstruct "github.com/golang/protobuf/ptypes/struct"
 	"github.com/google/go-cmp/cmp"
+	"google.golang.org/protobuf/proto"
 
 	core "github.com/envoyproxy/go-control-plane/envoy/config/core/v3"
 	discovery "github.com/envoyproxy/go-control-plane/envoy/service/discovery/v3"

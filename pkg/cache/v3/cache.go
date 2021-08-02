@@ -21,15 +21,16 @@ import (
 	"fmt"
 	"sync/atomic"
 
-	discovery "github.com/envoyproxy/go-control-plane/envoy/service/discovery/v3"
+	"google.golang.org/protobuf/types/known/anypb"
 
 	"github.com/golang/protobuf/proto"
-
 	"github.com/golang/protobuf/ptypes"
 	"github.com/golang/protobuf/ptypes/any"
 
 	"github.com/envoyproxy/go-control-plane/pkg/cache/types"
 	"github.com/envoyproxy/go-control-plane/pkg/server/stream/v3"
+
+	discovery "github.com/envoyproxy/go-control-plane/envoy/service/discovery/v3"
 )
 
 // Request is an alias for the discovery request type.
@@ -314,7 +315,7 @@ func (r *RawResponse) maybeCreateTTLResource(resource types.ResourceWithTTL) (ty
 		}
 
 		if !r.Heartbeat {
-			any, err := ptypes.MarshalAny(resource.Resource)
+			any, err := anypb.New(resource.Resource)
 			if err != nil {
 				return nil, "", err
 			}

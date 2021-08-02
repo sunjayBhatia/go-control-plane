@@ -19,7 +19,7 @@ import (
 	"encoding/hex"
 	"fmt"
 
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 
 	cluster "github.com/envoyproxy/go-control-plane/envoy/config/cluster/v3"
 	core "github.com/envoyproxy/go-control-plane/envoy/config/core/v3"
@@ -101,14 +101,7 @@ func GetResourceName(res types.Resource) string {
 
 // MarshalResource converts the Resource to MarshaledResource
 func MarshalResource(resource types.Resource) (types.MarshaledResource, error) {
-	b := proto.NewBuffer(nil)
-	b.SetDeterministic(true)
-	err := b.Marshal(resource)
-	if err != nil {
-		return nil, err
-	}
-
-	return b.Bytes(), nil
+	return proto.MarshalOptions{Deterministic: true}.Marshal(resource)
 }
 
 // GetResourceReferences returns the names for dependent resources (EDS cluster

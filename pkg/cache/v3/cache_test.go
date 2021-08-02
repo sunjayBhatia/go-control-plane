@@ -6,6 +6,7 @@ import (
 	"github.com/golang/protobuf/ptypes"
 	"github.com/golang/protobuf/ptypes/any"
 	"github.com/stretchr/testify/assert"
+	"google.golang.org/protobuf/types/known/anypb"
 
 	route "github.com/envoyproxy/go-control-plane/envoy/config/route/v3"
 	discovery "github.com/envoyproxy/go-control-plane/envoy/service/discovery/v3"
@@ -43,7 +44,7 @@ func TestResponseGetDiscoveryResponse(t *testing.T) {
 
 func TestPassthroughResponseGetDiscoveryResponse(t *testing.T) {
 	routes := []types.Resource{&route.RouteConfiguration{Name: resourceName}}
-	rsrc, err := ptypes.MarshalAny(routes[0])
+	rsrc, err := anypb.New(routes[0])
 	assert.Nil(t, err)
 	dr := &discovery.DiscoveryResponse{
 		TypeUrl:     resource.RouteType,
