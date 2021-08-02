@@ -21,5 +21,5 @@ jobs:
           version: latest
           only-new-issues: true
           
-          Optional: golangci-lint command line arguments.
+          # Optional: golangci-lint command line arguments.
           args: --timeout=10m0s
