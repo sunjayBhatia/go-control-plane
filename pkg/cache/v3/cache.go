@@ -21,11 +21,9 @@ import (
 	"fmt"
 	"sync/atomic"
 
-	"google.golang.org/protobuf/types/known/anypb"
-
 	"github.com/golang/protobuf/proto"
-	"github.com/golang/protobuf/ptypes"
-	"github.com/golang/protobuf/ptypes/any"
+	"google.golang.org/protobuf/types/known/anypb"
+	"google.golang.org/protobuf/types/known/durationpb"
 
 	"github.com/envoyproxy/go-control-plane/pkg/cache/types"
 	"github.com/envoyproxy/go-control-plane/pkg/server/stream/v3"
@@ -197,12 +195,10 @@ var _ DeltaResponse = &DeltaPassthroughResponse{}
 // This is necessary because the marshaled response does not change across the calls.
 // This caching behavior is important in high throughput scenarios because grpc marshaling has a cost and it drives the cpu utilization under load.
 func (r *RawResponse) GetDiscoveryResponse() (*discovery.DiscoveryResponse, error) {
-
 	marshaledResponse := r.marshaledResponse.Load()
 
 	if marshaledResponse == nil {
-
-		marshaledResources := make([]*any.Any, len(r.Resources))
+		marshaledResources := make([]*anypb.Any, len(r.Resources))
 
 		for i, resource := range r.Resources {
 			maybeTtldResource, resourceType, err := r.maybeCreateTTLResource(resource)
@@ -213,7 +209,7 @@ func (r *RawResponse) GetDiscoveryResponse() (*discovery.DiscoveryResponse, erro
 			if err != nil {
 				return nil, err
 			}
-			marshaledResources[i] = &any.Any{
+			marshaledResources[i] = &anypb.Any{
 				TypeUrl: resourceType,
 				Value:   marshaledResource,
 			}
@@ -252,7 +248,7 @@ func (r *RawDeltaResponse) GetDeltaDiscoveryResponse() (*discovery.DeltaDiscover
 			}
 			marshaledResources[i] = &discovery.Resource{
 				Name: name,
-				Resource: &any.Any{
+				Resource: &anypb.Any{
 					TypeUrl: r.DeltaRequest.TypeUrl,
 					Value:   marshaledResource,
 				},
@@ -305,13 +301,13 @@ func (r *RawDeltaResponse) GetContext() context.Context {
 	return r.Ctx
 }
 
-var deltaResourceTypeURL = "type.googleapis.com/" + proto.MessageName(&discovery.Resource{})
+var deltaResourceTypeURL = "type.googleapis.com/" + string(proto.MessageReflect(&discovery.Resource{}).Descriptor().FullName())
 
 func (r *RawResponse) maybeCreateTTLResource(resource types.ResourceWithTTL) (types.Resource, string, error) {
 	if resource.TTL != nil {
 		wrappedResource := &discovery.Resource{
 			Name: GetResourceName(resource.Resource),
-			Ttl:  ptypes.DurationProto(*resource.TTL),
+			Ttl:  durationpb.New(*resource.TTL),
 		}
 
 		if !r.Heartbeat {

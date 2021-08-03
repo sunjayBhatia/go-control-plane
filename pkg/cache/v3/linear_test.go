@@ -20,8 +20,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-
-	wrappers "github.com/golang/protobuf/ptypes/wrappers"
+	"google.golang.org/protobuf/types/known/wrapperspb"
 
 	"github.com/envoyproxy/go-control-plane/pkg/cache/types"
 )
@@ -31,7 +30,7 @@ const (
 )
 
 func testResource(s string) types.Resource {
-	return &wrappers.StringValue{Value: s}
+	return &wrapperspb.StringValue{Value: s}
 }
 
 func verifyResponse(t *testing.T, ch <-chan Response, version string, num int) {

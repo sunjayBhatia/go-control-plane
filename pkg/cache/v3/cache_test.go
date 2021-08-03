@@ -3,9 +3,9 @@ package cache_test
 import (
 	"testing"
 
-	"github.com/golang/protobuf/ptypes"
-	"github.com/golang/protobuf/ptypes/any"
 	"github.com/stretchr/testify/assert"
+	"google.golang.org/protobuf/encoding/protojson"
+	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/anypb"
 
 	route "github.com/envoyproxy/go-control-plane/envoy/config/route/v3"
@@ -37,7 +37,7 @@ func TestResponseGetDiscoveryResponse(t *testing.T) {
 	assert.Same(t, discoveryResponse, cachedResponse)
 
 	r := &route.RouteConfiguration{}
-	err = ptypes.UnmarshalAny(discoveryResponse.Resources[0], r)
+	err = anypb.UnmarshalTo(discoveryResponse.Resources[0], r, proto.UnmarshalOptions{})
 	assert.Nil(t, err)
 	assert.Equal(t, r.Name, resourceName)
 }
@@ -48,7 +48,7 @@ func TestPassthroughResponseGetDiscoveryResponse(t *testing.T) {
 	assert.Nil(t, err)
 	dr := &discovery.DiscoveryResponse{
 		TypeUrl:     resource.RouteType,
-		Resources:   []*any.Any{rsrc},
+		Resources:   []*anypb.Any{rsrc},
 		VersionInfo: "v",
 	}
 	resp := cache.PassthroughResponse{
@@ -62,7 +62,7 @@ func TestPassthroughResponseGetDiscoveryResponse(t *testing.T) {
 	assert.Equal(t, len(discoveryResponse.Resources), 1)
 
 	r := &route.RouteConfiguration{}
-	err = ptypes.UnmarshalAny(discoveryResponse.Resources[0], r)
+	err = anypb.UnmarshalTo(discoveryResponse.Resources[0], r, proto.UnmarshalOptions{})
 	assert.Nil(t, err)
 	assert.Equal(t, r.Name, resourceName)
 	assert.Equal(t, discoveryResponse, dr)
@@ -88,14 +88,14 @@ func TestHeartbeatResponseGetDiscoveryResponse(t *testing.T) {
 	assert.Same(t, discoveryResponse, cachedResponse)
 
 	r := &route.RouteConfiguration{}
-	err = ptypes.UnmarshalAny(discoveryResponse.Resources[0], r)
+	err = anypb.UnmarshalTo(discoveryResponse.Resources[0], r, proto.UnmarshalOptions{})
 	assert.Nil(t, err)
 	assert.Equal(t, r.Name, resourceName)
 }
 
-func isTTLResource(resource *any.Any) bool {
+func isTTLResource(resource *anypb.Any) bool {
 	wrappedResource := &discovery.Resource{}
-	err := ptypes.UnmarshalAny(resource, wrappedResource)
+	err := protojson.Unmarshal(resource.Value, wrappedResource)
 	if err != nil {
 		return false
 	}

@@ -18,15 +18,15 @@ package conversion
 import (
 	"errors"
 
-	pstruct "github.com/golang/protobuf/ptypes/struct"
 	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/proto"
+	"google.golang.org/protobuf/types/known/structpb"
 )
 
 // MessageToStruct encodes a protobuf Message into a Struct. Hilariously, it
 // uses JSON as the intermediary
 // author:glen@turbinelabs.io
-func MessageToStruct(msg proto.Message) (*pstruct.Struct, error) {
+func MessageToStruct(msg proto.Message) (*structpb.Struct, error) {
 	if msg == nil {
 		return nil, errors.New("nil message")
 	}
@@ -36,7 +36,7 @@ func MessageToStruct(msg proto.Message) (*pstruct.Struct, error) {
 		return nil, err
 	}
 
-	pbs := &pstruct.Struct{}
+	pbs := &structpb.Struct{}
 	if err := protojson.Unmarshal(b, pbs); err != nil {
 		return nil, err
 	}
@@ -45,7 +45,7 @@ func MessageToStruct(msg proto.Message) (*pstruct.Struct, error) {
 }
 
 // StructToMessage decodes a protobuf Message from a Struct.
-func StructToMessage(pbst *pstruct.Struct, out proto.Message) error {
+func StructToMessage(pbst *structpb.Struct, out proto.Message) error {
 	if pbst == nil {
 		return errors.New("nil struct")
 	}
