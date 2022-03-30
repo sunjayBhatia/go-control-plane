@@ -54,6 +54,9 @@ func (cb *Callbacks) OnDeltaStreamClosed(id int64) {
 func (cb *Callbacks) OnStreamRequest(id int64, req *discovery.DiscoveryRequest) error {
 	cb.mu.Lock()
 	defer cb.mu.Unlock()
+
+	log.Printf("request for type %s version %s nonce %s\n", req.TypeUrl, req.VersionInfo, req.ResponseNonce)
+
 	cb.Requests++
 	if cb.Signal != nil {
 		close(cb.Signal)
@@ -69,6 +72,9 @@ func (cb *Callbacks) OnStreamRequest(id int64, req *discovery.DiscoveryRequest) 
 func (cb *Callbacks) OnStreamResponse(ctx context.Context, id int64, req *discovery.DiscoveryRequest, res *discovery.DiscoveryResponse) {
 	cb.mu.Lock()
 	defer cb.mu.Unlock()
+
+	log.Printf("responding for type %s version %s nonce %s\n", res.TypeUrl, res.VersionInfo, res.Nonce)
+
 	cb.Responses++
 	if cb.Debug {
 		log.Printf("responding to request for %s on stream %d", req.GetTypeUrl(), id)

@@ -13,12 +13,12 @@ if [[ $NUM_DIFF_LINES > 0 ]]; then
   exit 1
 fi
 
-make build
-make bin/example
-make examples
-make test
-make integration
+# make build
+# make bin/example
+# make examples
+# make test
+make integration.ads
 
-cd ./xdsmatcher
-make test
+# cd ./xdsmatcher
+# make test
 # TODO(snowp): Output coverage in CI

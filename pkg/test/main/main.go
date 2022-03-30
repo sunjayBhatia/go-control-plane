@@ -28,6 +28,8 @@ import (
 	"runtime/pprof"
 	"time"
 
+	"github.com/sirupsen/logrus"
+
 	"github.com/envoyproxy/go-control-plane/pkg/cache/v3"
 	conf "github.com/envoyproxy/go-control-plane/pkg/server/config"
 	"github.com/envoyproxy/go-control-plane/pkg/server/sotw/v3"
@@ -178,8 +180,10 @@ func main() {
 	cb := &testv3.Callbacks{Signal: signal, Debug: debug}
 
 	// mux integration
-	// nil for logger uses default logger
-	config := cache.NewSnapshotCache(mode == resource.Ads, cache.IDHash{}, nil)
+	logger := logrus.New()
+	logger.SetOutput(os.Stdout)
+	logger.SetLevel(logrus.DebugLevel)
+	config := cache.NewSnapshotCache(mode == resource.Ads, cache.IDHash{}, logger)
 	var configCache cache.Cache = config
 	typeURL := "type.googleapis.com/envoy.config.endpoint.v3.ClusterLoadAssignment"
 	eds := cache.NewLinearCache(typeURL)

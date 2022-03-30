@@ -43,4 +43,4 @@ function cleanup() {
 trap cleanup EXIT
 
 # run the test suite (which also contains the control plane)
-bin/test --xds=${XDS} --runtimes=${RUNTIMES} --pprof=${PPROF} -debug -message="$MESSAGE" "$@"
+bin/test --xds=${XDS} --runtimes=${RUNTIMES} --pprof=${PPROF} -debug -message="$MESSAGE" -u=10 "$@"
