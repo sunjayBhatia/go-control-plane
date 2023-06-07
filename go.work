@@ -2,8 +2,7 @@ go 1.20
 
 use (
 	./
-	./contrib
-	./envoy
+	./api
 	./ratelimit
 	./examples/dyplomat
 	./xdsmatcher

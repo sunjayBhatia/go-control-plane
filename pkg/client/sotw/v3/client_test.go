@@ -12,9 +12,9 @@ import (
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/anypb"
 
-	clusterv3 "github.com/envoyproxy/go-control-plane/envoy/config/cluster/v3"
-	core "github.com/envoyproxy/go-control-plane/envoy/config/core/v3"
-	discovery "github.com/envoyproxy/go-control-plane/envoy/service/discovery/v3"
+	clusterv3 "github.com/envoyproxy/go-control-plane/api/envoy/config/cluster/v3"
+	core "github.com/envoyproxy/go-control-plane/api/envoy/config/core/v3"
+	discovery "github.com/envoyproxy/go-control-plane/api/envoy/service/discovery/v3"
 	"github.com/envoyproxy/go-control-plane/pkg/cache/types"
 	"github.com/envoyproxy/go-control-plane/pkg/cache/v3"
 	client "github.com/envoyproxy/go-control-plane/pkg/client/sotw/v3"

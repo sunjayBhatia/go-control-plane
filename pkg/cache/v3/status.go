@@ -19,7 +19,7 @@ import (
 	"sync"
 	"time"
 
-	core "github.com/envoyproxy/go-control-plane/envoy/config/core/v3"
+	core "github.com/envoyproxy/go-control-plane/api/envoy/config/core/v3"
 	"github.com/envoyproxy/go-control-plane/pkg/server/stream/v3"
 )
 

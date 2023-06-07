@@ -2,9 +2,11 @@ module github.com/envoyproxy/go-control-plane/xdsmatcher
 
 go 1.20
 
+replace github.com/envoyproxy/go-control-plane/api => ../api
+
 require (
-	github.com/cncf/xds/go v0.0.0-20230428030218-4003588d1b74
-	github.com/envoyproxy/go-control-plane v0.11.1
+	github.com/cncf/xds/go v0.0.0-20230607035331-e9ce68804cb4
+	github.com/envoyproxy/go-control-plane/api v0.0.0-00010101000000-000000000000
 	github.com/stretchr/testify v1.8.4
 	google.golang.org/protobuf v1.30.0
 	gopkg.in/yaml.v2 v2.4.0
