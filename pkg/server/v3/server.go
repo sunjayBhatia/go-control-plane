@@ -36,9 +36,9 @@ import (
 	routeservice "github.com/envoyproxy/go-control-plane/api/envoy/service/route/v3"
 	runtimeservice "github.com/envoyproxy/go-control-plane/api/envoy/service/runtime/v3"
 	secretservice "github.com/envoyproxy/go-control-plane/api/envoy/service/secret/v3"
+	rlsconfigservice "github.com/envoyproxy/go-control-plane/api/ratelimit/service/ratelimit/v3"
 	"github.com/envoyproxy/go-control-plane/pkg/cache/v3"
 	"github.com/envoyproxy/go-control-plane/pkg/resource/v3"
-	rlsconfigservice "github.com/envoyproxy/go-control-plane/ratelimit/service/ratelimit/v3"
 )
 
 // Server is a collection of handlers for streaming discovery requests.

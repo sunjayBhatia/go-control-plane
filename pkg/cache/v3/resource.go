@@ -28,9 +28,9 @@ import (
 	route "github.com/envoyproxy/go-control-plane/api/envoy/config/route/v3"
 	auth "github.com/envoyproxy/go-control-plane/api/envoy/extensions/transport_sockets/tls/v3"
 	runtime "github.com/envoyproxy/go-control-plane/api/envoy/service/runtime/v3"
+	ratelimit "github.com/envoyproxy/go-control-plane/api/ratelimit/config/ratelimit/v3"
 	"github.com/envoyproxy/go-control-plane/pkg/cache/types"
 	"github.com/envoyproxy/go-control-plane/pkg/resource/v3"
-	ratelimit "github.com/envoyproxy/go-control-plane/ratelimit/config/ratelimit/v3"
 )
 
 // GetResponseType returns the enumeration for a valid xDS type URL.

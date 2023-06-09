@@ -2,16 +2,12 @@ module github.com/envoyproxy/go-control-plane
 
 go 1.20
 
-replace (
-	github.com/envoyproxy/go-control-plane/api => ./api
-	github.com/envoyproxy/go-control-plane/ratelimit => ./ratelimit
-)
+replace github.com/envoyproxy/go-control-plane/api => ./api
 
 require (
 	github.com/census-instrumentation/opencensus-proto v0.4.1
 	github.com/cncf/xds/go v0.0.0-20230607035331-e9ce68804cb4
 	github.com/envoyproxy/go-control-plane/api v0.0.0-00010101000000-000000000000
-	github.com/envoyproxy/go-control-plane/ratelimit v0.0.0-00010101000000-000000000000
 	github.com/envoyproxy/protoc-gen-validate v1.0.1
 	github.com/golang/protobuf v1.5.3
 	github.com/google/go-cmp v0.5.9

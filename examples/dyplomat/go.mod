@@ -5,7 +5,6 @@ go 1.20
 replace (
 	github.com/envoyproxy/go-control-plane => ../../
 	github.com/envoyproxy/go-control-plane/api => ../../api
-	github.com/envoyproxy/go-control-plane/ratelimit => ../../ratelimit
 )
 
 require (
@@ -27,7 +26,6 @@ require (
 	github.com/cncf/xds/go v0.0.0-20230607035331-e9ce68804cb4 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/emicklei/go-restful/v3 v3.9.0 // indirect
-	github.com/envoyproxy/go-control-plane/ratelimit v0.0.0-00010101000000-000000000000 // indirect
 	github.com/envoyproxy/protoc-gen-validate v1.0.1 // indirect
 	github.com/go-logr/logr v1.2.3 // indirect
 	github.com/go-openapi/jsonpointer v0.19.6 // indirect

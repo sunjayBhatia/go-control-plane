@@ -5,7 +5,6 @@ go 1.20
 require (
 	github.com/census-instrumentation/opencensus-proto v0.4.1
 	github.com/cncf/xds/go v0.0.0-20230607035331-e9ce68804cb4
-	github.com/envoyproxy/go-control-plane v0.11.1
 	github.com/envoyproxy/protoc-gen-validate v1.0.1
 	github.com/golang/protobuf v1.5.3
 	github.com/prometheus/client_model v0.4.0
